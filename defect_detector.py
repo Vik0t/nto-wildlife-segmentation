@@ -13,5 +13,5 @@ imagelab.issues()
 
 dark_images = imagelab.issues[imagelab.issues["is_blurry_issue"] == True].sort_values(
     by=["blurry_score"]
-)
+ )
 dark_image_files = dark_images.index.tolist()
