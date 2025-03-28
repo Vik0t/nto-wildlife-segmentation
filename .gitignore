@@ -1,0 +1,13 @@
+jsons/
+data/
+yolo_weights/
+runs/detect/
+segment-anything-2/gray_data/
+segment-anything-2/sam_weights/
+segment-anything-2/color_data/
+.venv/
+sam2.1_hiera_base_plus.pt
+sam2.1_hiera_small.pt
+sam2.1_hiera_tiny.pt
+gray_train.json
+gray_val.json
