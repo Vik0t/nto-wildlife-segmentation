@@ -8,7 +8,13 @@ class DetectionModel():
         self.model = YOLO(model_path)
 
     def add_noise(self, img):
-        equ = cv2.equalizeHist(img)
+        ycrcb_img = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
+
+        # equalize the histogram of the Y channel
+        ycrcb_img[:, :, 0] = cv2.equalizeHist(ycrcb_img[:, :, 0])
+
+        # convert back to RGB color-space from YCrCb
+        equ = cv2.cvtColor(ycrcb_img, cv2.COLOR_YCrCb2BGR)
         res = np.hstack((img,equ))
         return res
     
@@ -22,7 +28,7 @@ class DetectionModel():
         conf = 0
         els = 0
         for el in prediction:
-            conf += el.conf
+            conf += el.boxes.conf
             els += 1
         return conf/els 
 
@@ -36,5 +42,6 @@ class DetectionModel():
         normal_conf = self.get_conf(normal_pred)
         
         preds = {noisy_conf: noisy_pred, denoised_conf: denoised_pred, normal_conf: normal_pred}
+        print(min(normal_conf, denoised_conf, noisy_conf))
         return preds[max(normal_conf, denoised_conf, noisy_conf)]
 
