@@ -1,5 +1,6 @@
 jsons/
 data/
+Real-ESRGAN/
 yolo_weights/
 runs/detect/
 segment-anything-2/gray_data/
